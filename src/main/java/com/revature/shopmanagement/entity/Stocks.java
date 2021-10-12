@@ -20,7 +20,7 @@ public class Stocks {
 	private Date stockUpdatedOn;
 
 	@OneToOne
-	@JoinColumn(name = "product_id")
+	@JoinColumn(name = "product_id",unique=true)
 	private Products product;
 
 	public Stocks() {
