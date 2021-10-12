@@ -52,21 +52,21 @@ public class CustomerController {
 	}
 
 	// method to fetch customer by name
-	@GetMapping("/getCustomer/Name/{custName}")
+	@GetMapping("/getCustomerByName/{custName}")
 	public ResponseEntity<List<Customer>> getCustomerByName(@PathVariable String custName) {
 		return new ResponseEntity<>(customerService.getCustomerByName(custName), HttpStatus.OK);
 	}
 
 	// method to fetch customer by phone
-	@GetMapping("/getCustomer/Phone/{custPhone}")
+	@GetMapping("/getCustomerByPhone/{custPhone}")
 	public ResponseEntity<Customer> getCustomerByPhoneNo(@PathVariable String custPhone) {
 		return new ResponseEntity<>(customerService.getCustomerByPhoneNo(custPhone), HttpStatus.OK);
 	}
 
 	// method to fetch customer by phone
-	@GetMapping("/getCustomer/Mail/{custMail}")
+	@GetMapping("/getCustomerByMail/{custMail}")
 	public ResponseEntity<Customer> getCustomerByMail(@PathVariable String custMail) {
-		return new ResponseEntity<>(customerService.getCustomerByPhoneNo(custMail), HttpStatus.OK);
+		return new ResponseEntity<>(customerService.getCustomerByMail(custMail), HttpStatus.OK);
 	}
 
 	// method to fetch all customer

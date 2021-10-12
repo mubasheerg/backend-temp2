@@ -36,6 +36,7 @@ public class StocksDAOImpl implements StocksDAO {
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			stocks.setStockAddedOn(new Date());
+			System.out.println(stocks.getStockId());
 			session.save(stocks);
 			return "Stock added successfully at : " + localTime;
 		} catch (Exception e) {

@@ -7,6 +7,7 @@ public class StocksDTO {
 	private long count;
 	private Date stockAddedOn;
 	private Date stockUpdatedOn;
+	private ProductDTO product;
 
 	public StocksDTO() {
 	}
@@ -17,6 +18,14 @@ public class StocksDTO {
 		this.count = count;
 		this.stockAddedOn = stockAddedOn;
 		this.stockUpdatedOn = stockUpdatedOn;
+	}
+
+	public ProductDTO getProduct() {
+		return product;
+	}
+
+	public void setProduct(ProductDTO product) {
+		this.product = product;
 	}
 
 	public long getStockId() {
