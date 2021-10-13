@@ -29,7 +29,7 @@ public class ProductController {
 	@Autowired
 	ProductService productService;
 
-	@GetMapping("/getProduct/Id/{prodId}")
+	@GetMapping("/getProductById/{prodId}")
 	public ResponseEntity<Products> getProductById(@PathVariable("prodId") Long prodId) {
 		return new ResponseEntity<>(productService.getProductById(prodId), HttpStatus.OK);
 	}
@@ -49,12 +49,12 @@ public class ProductController {
 		return new ResponseEntity<>(productService.deleteProductById(prodId),HttpStatus.OK);
 	}
 
-	@GetMapping("/getProduct/Name/{prodName}")
+	@GetMapping("/getProductByName/{prodName}")
 	public ResponseEntity<List<Products>> getProductByName(@PathVariable String prodName) {
 		return new ResponseEntity<>(productService.getProductByName(prodName), HttpStatus.OK);
 	}
 
-	@GetMapping("/getProduct/{category}")
+	@GetMapping("/getProductByCategory/{category}")
 	public ResponseEntity<Products> getProductByCategory(@PathVariable String category) {
 		return new ResponseEntity<>(productService.getProductByCategory(category), HttpStatus.OK);
 	}

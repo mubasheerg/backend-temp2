@@ -1,6 +1,10 @@
 package com.revature.shopmanagement.dto;
 
 import java.util.Date;
+import java.util.List;
+
+import com.revature.shopmanagement.entity.Cart;
+import com.revature.shopmanagement.entity.Order;
 
 public class CustomerDTO {
 
@@ -12,13 +16,15 @@ public class CustomerDTO {
 	private String custPhone;
 	private Date custCreatedOn;
 	private Date custUpdatedOn;
+	private List<Order> order;
+	private Cart cart;
 
 	public CustomerDTO() {
 
 	}
 
 	public CustomerDTO(long custId, String custName, String custMail, String custPwd, String custAddress,
-			String custPhone, Date custCreatedOn, Date custUpdatedOn) {
+			String custPhone, Date custCreatedOn, Date custUpdatedOn, List<Order> order, Cart cart) {
 		super();
 		this.custId = custId;
 		this.custName = custName;
@@ -28,6 +34,24 @@ public class CustomerDTO {
 		this.custPhone = custPhone;
 		this.custCreatedOn = custCreatedOn;
 		this.custUpdatedOn = custUpdatedOn;
+		this.order = order;
+		this.cart = cart;
+	}
+
+	public List<Order> getOrder() {
+		return order;
+	}
+
+	public void setOrder(List<Order> order) {
+		this.order = order;
+	}
+
+	public Cart getCart() {
+		return cart;
+	}
+
+	public void setCart(Cart cart) {
+		this.cart = cart;
 	}
 
 	public long getCustId() {
@@ -98,7 +122,7 @@ public class CustomerDTO {
 	public String toString() {
 		return "CustomerDTO [custId=" + custId + ", custName=" + custName + ", custMail=" + custMail + ", custPwd="
 				+ custPwd + ", custAddress=" + custAddress + ", custPhone=" + custPhone + ", custCreatedOn="
-				+ custCreatedOn + ", custUpdatedOn=" + custUpdatedOn + "]";
+				+ custCreatedOn + ", custUpdatedOn=" + custUpdatedOn + ", order=" + order + ", cart=" + cart + "]";
 	}
 
 }

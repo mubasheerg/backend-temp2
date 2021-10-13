@@ -12,12 +12,13 @@ public class StocksDTO {
 	public StocksDTO() {
 	}
 
-	public StocksDTO(long stockId, long count, Date stockAddedOn, Date stockUpdatedOn) {
+	public StocksDTO(long stockId, long count, Date stockAddedOn, Date stockUpdatedOn, ProductDTO product) {
 		super();
 		this.stockId = stockId;
 		this.count = count;
 		this.stockAddedOn = stockAddedOn;
 		this.stockUpdatedOn = stockUpdatedOn;
+		this.product = product;
 	}
 
 	public ProductDTO getProduct() {
@@ -63,7 +64,7 @@ public class StocksDTO {
 	@Override
 	public String toString() {
 		return "StocksDTO [stockId=" + stockId + ", count=" + count + ", stockAddedOn=" + stockAddedOn
-				+ ", stockUpdatedOn=" + stockUpdatedOn + "]";
+				+ ", stockUpdatedOn=" + stockUpdatedOn + ", product=" + product + "]";
 	}
 
 }

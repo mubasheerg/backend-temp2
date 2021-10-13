@@ -29,7 +29,7 @@ public class CartController {
 	@Autowired
 	CartService cartService;
 
-	@GetMapping("/getCart/Id/{cartId}")
+	@GetMapping("/getCartById/{cartId}")
 	public ResponseEntity<Cart> getCartById(@PathVariable("cartId") Long cartId) {
 		return new ResponseEntity<>(cartService.getCartById(cartId), HttpStatus.OK);
 	}

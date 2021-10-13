@@ -28,7 +28,7 @@ public class CustomerController {
 	CustomerService customerService;
 
 	// method to get customer by id
-	@GetMapping("/getCustomer/Id/{custId}")
+	@GetMapping("/getCustomerById/{custId}")
 	public ResponseEntity<Customer> getCustomerById(@PathVariable("custId") Long custId) {
 		return new ResponseEntity<>(customerService.getCustomerById(custId), HttpStatus.OK);
 	}

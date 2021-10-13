@@ -27,7 +27,7 @@ public class StocksController {
 	@Autowired
 	StocksService stocksService;
 
-	@GetMapping("/getStocks/Id/{stockId}")
+	@GetMapping("/getStocksById/{stockId}")
 	public ResponseEntity<Stocks> getStocksById(@PathVariable("stockId") Long stockId) {
 		return new ResponseEntity<>(stocksService.getStocksById(stockId), HttpStatus.OK);
 	}

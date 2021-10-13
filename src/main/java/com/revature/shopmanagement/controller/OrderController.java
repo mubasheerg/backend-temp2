@@ -29,7 +29,7 @@ public class OrderController {
 	@Autowired
 	OrderService orderService;
 
-	@GetMapping("/getOrder/Id/{orderId}")
+	@GetMapping("/getOrderById/{orderId}")
 	public ResponseEntity<Order> getCustomerById(@PathVariable("orderId") Long orderId) {
 		return new ResponseEntity<>(orderService.getOrderById(orderId), HttpStatus.OK);
 	}

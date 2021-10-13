@@ -54,12 +54,12 @@ public class AdminController {
 		return new ResponseEntity<>(adminService.deleteAdminById(adminId), HttpStatus.OK);
 	}
 
-	@GetMapping("/getAdmin/Id/{adminId}")
+	@GetMapping("/getAdminById/{adminId}")
 	public ResponseEntity<Admin> getAdminById(@PathVariable("adminId") Long adminId) {
 		return new ResponseEntity<>(adminService.getAdminById(adminId), HttpStatus.OK);
 	}
 
-	@GetMapping("getAdmin/Name/{adminName}")
+	@GetMapping("getAdminByName/{adminName}")
 	public ResponseEntity<List<Admin>> getAdminByName(@PathVariable String adminName) {
 		return new ResponseEntity<>(adminService.getAdminByName(adminName), HttpStatus.OK);
 	}
