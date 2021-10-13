@@ -8,8 +8,10 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.revature.shopmanagement.dao.ProductDAO;
 import com.revature.shopmanagement.dao.StocksDAO;
 import com.revature.shopmanagement.dto.StocksDTO;
+import com.revature.shopmanagement.entity.Products;
 import com.revature.shopmanagement.entity.Stocks;
 import com.revature.shopmanagement.exception.DuplicateIdException;
 import com.revature.shopmanagement.exception.IdNotFoundException;
@@ -24,6 +26,8 @@ public class StocksServiceImpl implements StocksService {
 
 	@Autowired
 	private StocksDAO stocksDAO;
+	@Autowired
+	private ProductDAO productDAO;
 
 	@Override
 	public String addStocks(StocksDTO stocksDTO) {
@@ -78,6 +82,11 @@ public class StocksServiceImpl implements StocksService {
 	public boolean isStockExists(Long stockId) {
 		logger.info("checking existance of product by id");
 		return stocksDAO.isStockExists(stockId);
+	}
+
+	@Override
+	public List<Stocks> getCountByProdId(List<Long> prodIds) {
+		return stocksDAO.getCountByProdId(prodIds);
 	}
 
 }

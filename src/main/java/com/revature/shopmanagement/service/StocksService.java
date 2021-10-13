@@ -3,6 +3,7 @@ package com.revature.shopmanagement.service;
 import java.util.List;
 
 import com.revature.shopmanagement.dto.StocksDTO;
+import com.revature.shopmanagement.entity.Products;
 import com.revature.shopmanagement.entity.Stocks;
 
 public interface StocksService {
@@ -50,4 +51,6 @@ public interface StocksService {
 	 * @return-entire data of stocks
 	 */
 	public List<Stocks> getAllStocks();
+
+	public List<Stocks> getCountByProdId(List<Long> prodIds);
 }

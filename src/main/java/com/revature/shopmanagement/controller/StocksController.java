@@ -1,5 +1,7 @@
 package com.revature.shopmanagement.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,14 +17,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.shopmanagement.dto.StocksDTO;
 import com.revature.shopmanagement.entity.Customer;
+import com.revature.shopmanagement.entity.Products;
 import com.revature.shopmanagement.entity.Stocks;
 import com.revature.shopmanagement.service.StocksService;
 
 @CrossOrigin("*")
-
 @RestController
 @RequestMapping("stocks")
 public class StocksController {
+
+	Stocks stocks = new Stocks();
 
 	@Autowired
 	StocksService stocksService;
@@ -35,6 +39,16 @@ public class StocksController {
 	@PostMapping
 	public ResponseEntity<String> addStocks(@RequestBody StocksDTO stocks) {
 		return new ResponseEntity<>(stocksService.addStocks(stocks), HttpStatus.OK);
+	}
+
+//	@GetMapping("/product/{prodList}")
+//	public ResponseEntity<List<Stocks>> getCountByProdId(@PathVariable("prodList") List<Products> prodList){
+//		System.out.println("In stock controller");
+//		return new ResponseEntity<>(stocksService.getCountByProdId(prodList),HttpStatus.OK);
+//	}
+	@PostMapping("/count")
+	public ResponseEntity<List<Stocks>> getCountByProdId(@RequestBody List<Long> prodIds) {
+		return new ResponseEntity<>(stocksService.getCountByProdId(prodIds), HttpStatus.OK);
 	}
 
 	@PutMapping("/updateStocks")

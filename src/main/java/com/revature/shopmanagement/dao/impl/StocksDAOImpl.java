@@ -1,6 +1,7 @@
 package com.revature.shopmanagement.dao.impl;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.transaction.Transactional;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.revature.shopmanagement.dao.StocksDAO;
 import com.revature.shopmanagement.entity.Cart;
+import com.revature.shopmanagement.entity.Products;
 import com.revature.shopmanagement.entity.Stocks;
 import com.revature.shopmanagement.exception.DataBaseException;
 
@@ -36,7 +38,6 @@ public class StocksDAOImpl implements StocksDAO {
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			stocks.setStockAddedOn(new Date());
-			System.out.println(stocks.getStockId());
 			session.save(stocks);
 			return "Stock added successfully at : " + localTime;
 		} catch (Exception e) {
@@ -103,6 +104,25 @@ public class StocksDAOImpl implements StocksDAO {
 		} catch (Exception e) {
 			throw new DataBaseException("Error in database");
 		}
+	}
+
+	@Override
+	public List<Stocks> getCountByProdId(List<Long> prodIds) {
+		List<Stocks> stockList = new ArrayList<>();
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			for (Long product : prodIds) {
+				Query<Stocks> query = session.createQuery("FROM Stocks s WHERE s.product.prodId=:productId",
+						Stocks.class);
+				query.setParameter("productId", product);
+				Stocks stock = query.getSingleResult();
+				stockList.add(stock);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DataBaseException("");
+		}
+		return stockList;
 	}
 
 }

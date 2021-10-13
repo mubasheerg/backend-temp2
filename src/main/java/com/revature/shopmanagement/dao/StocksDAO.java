@@ -1,6 +1,8 @@
 package com.revature.shopmanagement.dao;
 
 import java.util.List;
+
+import com.revature.shopmanagement.entity.Products;
 import com.revature.shopmanagement.entity.Stocks;
 
 public interface StocksDAO {
@@ -15,4 +17,6 @@ public interface StocksDAO {
 	public boolean isStockExists(Long stockId);
 
 	public List<Stocks> getAllStocks();
+	
+	public List<Stocks> getCountByProdId(List<Long> prodIds); 
 }

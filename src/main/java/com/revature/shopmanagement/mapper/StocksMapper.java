@@ -11,7 +11,7 @@ public class StocksMapper {
 		stocks.setCount(stocksDTO.getCount());
 		stocks.setStockAddedOn(stocksDTO.getStockAddedOn());
 		stocks.setStockUpdatedOn(stocksDTO.getStockUpdatedOn());
-		Products product=new Products();
+		Products product = new Products();
 		product.setProdId(stocksDTO.getProduct().getProdId());
 		stocks.setProduct(product);
 		return stocks;
