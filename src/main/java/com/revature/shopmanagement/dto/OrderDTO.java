@@ -1,6 +1,7 @@
 package com.revature.shopmanagement.dto;
 
 import java.util.Date;
+import java.util.List;
 
 import com.revature.shopmanagement.entity.Customer;
 import com.revature.shopmanagement.entity.Products;
@@ -10,33 +11,17 @@ public class OrderDTO {
 	private double amount;
 	private Date orderAddedOn;
 	private Customer customer;
-	private Products product;
+	private List<Products> product;
 
 	public OrderDTO() {
 	}
 
-	public OrderDTO(long orderId, double amount, Date orderAddedOn, Customer customer, Products product) {
+	public OrderDTO(long orderId, double amount, Date orderAddedOn, Customer customer, List<Products> product) {
 		super();
 		this.orderId = orderId;
 		this.amount = amount;
 		this.orderAddedOn = orderAddedOn;
 		this.customer = customer;
-		this.product = product;
-	}
-
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
-
-	public Products getProduct() {
-		return product;
-	}
-
-	public void setProduct(Products product) {
 		this.product = product;
 	}
 
@@ -62,6 +47,22 @@ public class OrderDTO {
 
 	public void setOrderAddedOn(Date orderAddedOn) {
 		this.orderAddedOn = orderAddedOn;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public List<Products> getProduct() {
+		return product;
+	}
+
+	public void setProduct(List<Products> product) {
+		this.product = product;
 	}
 
 	@Override

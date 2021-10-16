@@ -41,11 +41,6 @@ public class StocksController {
 		return new ResponseEntity<>(stocksService.addStocks(stocks), HttpStatus.OK);
 	}
 
-//	@GetMapping("/product/{prodList}")
-//	public ResponseEntity<List<Stocks>> getCountByProdId(@PathVariable("prodList") List<Products> prodList){
-//		System.out.println("In stock controller");
-//		return new ResponseEntity<>(stocksService.getCountByProdId(prodList),HttpStatus.OK);
-//	}
 	@PostMapping("/count")
 	public ResponseEntity<List<Stocks>> getCountByProdId(@RequestBody List<Long> prodIds) {
 		return new ResponseEntity<>(stocksService.getCountByProdId(prodIds), HttpStatus.OK);

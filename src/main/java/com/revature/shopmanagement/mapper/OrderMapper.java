@@ -13,9 +13,9 @@ public class OrderMapper {
 		order.setOrderId(orderDTO.getOrderId());
 		order.setAmount(orderDTO.getAmount());
 		order.setOrderedOn(orderDTO.getOrderAddedOn());
-		Products product = new Products();
-		product.setProdId(orderDTO.getProduct().getProdId());
-		order.setProduct((List<Products>) product);
+//		Products product = new Products();
+//		product.setProdId(orderDTO.getProduct().getProdId());
+//		order.setProduct((List<Products>) product);
 		Customer customer = new Customer();
 		customer.setCustId(orderDTO.getCustomer().getCustId());
 		order.setCustomer(customer);

@@ -12,7 +12,7 @@ public interface CartService {
 
 	public String deleteCartById(Long cartId);
 
-	public Cart getCartById(Long cartId);
+	public List<Cart> getCartById(Long custId);
 
 	public boolean isCartExists(Long cartId);
 

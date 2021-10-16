@@ -1,6 +1,7 @@
 package com.revature.shopmanagement.dao.impl;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.transaction.Transactional;
@@ -62,7 +63,7 @@ public class CartDAOImpl implements CartDAO {
 		logger.info("delete cart by id");
 		try {
 			Session session = sessionFactory.getCurrentSession();
-			Cart cart = getCartById(cartId);
+			Cart cart = (Cart) getCartById(cartId);
 			session.delete(cart);
 			return "Cart deleted successfully";
 		} catch (Exception e) {
@@ -71,15 +72,18 @@ public class CartDAOImpl implements CartDAO {
 	}
 
 	@Override
-	public Cart getCartById(Long cartId) {
+	public List<Cart> getCartById(Long custId) {
 		logger.info("getting cart by id");
+		List<Cart> cartList=new ArrayList<>();
 		try {
 			Session session = sessionFactory.getCurrentSession();
-			return session.get(Cart.class, cartId);
+			Query<Cart> query=session.createQuery("FROM Cart c WHERE c.customer.custId=:customerId");
+			query.setParameter("customerId", custId);
+			cartList=query.list();
 		} catch (Exception e) {
 			throw new DataBaseException("Error in databse");
 		}
-
+		return cartList;
 	}
 
 	@Override

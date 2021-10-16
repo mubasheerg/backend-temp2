@@ -20,23 +20,13 @@ public class Order {
 	private Date orderedOn;
 
 	@ManyToOne
-	@JoinColumn(name = "customer_id", foreignKey = @ForeignKey(name = "FK_ORDER_CUSTOMERID"))
+	@JoinColumn(name = "customer_id")
 	private Customer customer;
 
 	@OneToMany
-	@JoinColumn(name = "product_id")
-	private List<Products> product;
+	private List<OrderItem> orderItem;
 
 	public Order() {
-	}
-
-	public Order(long orderId, double amount, Date orderedOn, Customer customer, List<Products> product) {
-		super();
-		this.orderId = orderId;
-		this.amount = amount;
-		this.orderedOn = orderedOn;
-		this.customer = customer;
-		this.product = product;
 	}
 
 	public long getOrderId() {
@@ -71,18 +61,27 @@ public class Order {
 		this.customer = customer;
 	}
 
-	public List<Products> getProduct() {
-		return product;
+	public List<OrderItem> getOrderItem() {
+		return orderItem;
 	}
 
-	public void setProduct(List<Products> product) {
-		this.product = product;
+	public void setOrderItem(List<OrderItem> orderItem) {
+		this.orderItem = orderItem;
+	}
+
+	public Order(long orderId, double amount, Date orderedOn, Customer customer, List<OrderItem> orderItem) {
+		super();
+		this.orderId = orderId;
+		this.amount = amount;
+		this.orderedOn = orderedOn;
+		this.customer = customer;
+		this.orderItem = orderItem;
 	}
 
 	@Override
 	public String toString() {
 		return "Order [orderId=" + orderId + ", amount=" + amount + ", orderedOn=" + orderedOn + ", customer="
-				+ customer + ", product=" + product + "]";
+				+ customer + ", orderItem=" + orderItem + "]";
 	}
 
 }

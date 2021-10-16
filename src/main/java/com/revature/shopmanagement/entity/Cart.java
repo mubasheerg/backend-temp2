@@ -1,12 +1,15 @@
 package com.revature.shopmanagement.entity;
 
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -32,15 +35,12 @@ public class Cart {
 	@JoinColumn(name = "customer_id")
 	private Customer customer;
 
-	public Cart() {
-	}
+	@ManyToOne
+	@JoinColumn(name = "product_id")
+	private Products product;
 
-	public Cart(long cartId, Date cartAddedOn, Date cartUpdatedOn, Customer customer) {
-		super();
-		this.cartId = cartId;
-		this.cartAddedOn = cartAddedOn;
-		this.cartUpdatedOn = cartUpdatedOn;
-		this.customer = customer;
+	public Cart() {
+
 	}
 
 	public long getCartId() {
@@ -75,10 +75,27 @@ public class Cart {
 		this.customer = customer;
 	}
 
+	public Products getProduct() {
+		return product;
+	}
+
+	public void setProduct(Products product) {
+		this.product = product;
+	}
+
+	public Cart(long cartId, Date cartAddedOn, Date cartUpdatedOn, Customer customer, Products product) {
+		super();
+		this.cartId = cartId;
+		this.cartAddedOn = cartAddedOn;
+		this.cartUpdatedOn = cartUpdatedOn;
+		this.customer = customer;
+		this.product = product;
+	}
+
 	@Override
 	public String toString() {
 		return "Cart [cartId=" + cartId + ", cartAddedOn=" + cartAddedOn + ", cartUpdatedOn=" + cartUpdatedOn
-				+ ", customer=" + customer + "]";
+				+ ", customer=" + customer + ", product=" + product + "]";
 	}
 
 }

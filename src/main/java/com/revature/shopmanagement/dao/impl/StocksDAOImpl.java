@@ -50,8 +50,11 @@ public class StocksDAOImpl implements StocksDAO {
 	@Override
 	public String updateStocks(Stocks stocks) {
 		logger.info("update stocks");
+		Stocks stock=null;
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			stock=getStocksById(stocks.getStockId());
+			stocks.setCount(stock.getCount()+stocks.getCount());
 			stocks.getStockUpdatedOn();
 			session.merge(stocks);
 			return "Stock updated successfully!";
@@ -124,5 +127,6 @@ public class StocksDAOImpl implements StocksDAO {
 		}
 		return stockList;
 	}
+	
 
 }

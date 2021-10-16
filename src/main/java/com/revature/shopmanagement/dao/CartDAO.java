@@ -10,7 +10,7 @@ public interface CartDAO {
 
 	public String deleteCartById(Long cartId);
 
-	public Cart getCartById(Long custId);
+	public List<Cart> getCartById(Long custId);
 
 	public boolean isCartExists(Long cartId);
 

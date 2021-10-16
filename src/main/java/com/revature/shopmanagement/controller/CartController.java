@@ -29,13 +29,14 @@ public class CartController {
 	@Autowired
 	CartService cartService;
 
-	@GetMapping("/getCartById/{cartId}")
-	public ResponseEntity<Cart> getCartById(@PathVariable("cartId") Long cartId) {
-		return new ResponseEntity<>(cartService.getCartById(cartId), HttpStatus.OK);
+	@GetMapping("/getCartById/{custId}")
+	public ResponseEntity<List<Cart>> getCartById(@PathVariable("custId") Long custId) {
+		return new ResponseEntity<>(cartService.getCartById(custId), HttpStatus.OK);
 	}
 
 	@PostMapping
 	public ResponseEntity<String> addCart(@RequestBody CartDTO cart) {
+		System.out.println(cart);
 		return new ResponseEntity<>(cartService.addCart(cart),HttpStatus.OK);
 	}
 

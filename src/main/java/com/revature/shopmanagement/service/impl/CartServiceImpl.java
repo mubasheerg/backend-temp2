@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.shopmanagement.dao.CartDAO;
+import com.revature.shopmanagement.dao.CustomerDAO;
 import com.revature.shopmanagement.dto.CartDTO;
 import com.revature.shopmanagement.entity.Cart;
 import com.revature.shopmanagement.entity.Products;
@@ -26,7 +27,9 @@ public class CartServiceImpl implements CartService {
 
 	@Autowired
 	private CartDAO cartDAO;
-
+	@Autowired
+	private CustomerDAO customerDAO;
+	
 	@Override
 	public String addCart(CartDTO cartDTO) {
 		logger.info("add cart");
@@ -59,12 +62,12 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public Cart getCartById(Long cartId) {
+	public List<Cart> getCartById(Long custId) {
 		logger.info("getting cart by id");
-		if (cartDAO.isCartExists(cartId))
-			return cartDAO.getCartById(cartId);
+		if (customerDAO.isCustomerExists(custId))
+			return cartDAO.getCartById(custId);
 		else
-			throw new IdNotFoundException("cart with Id: " + cartId + " is not found");
+			throw new IdNotFoundException("Customer with Id: " + custId + " is not found");
 	}
 
 	@Override

@@ -41,7 +41,7 @@ public class ProductServiceImpl implements ProductService {
 		logger.info("update product");
 		Products product = ProductMapper.dtoToEntity(productDTO);
 		Long prodId = product.getProdId();
-		if (!productDAO.isProductExists(prodId))
+		if (productDAO.isProductExists(prodId))
 			return productDAO.updateProduct(product);
 		else
 			throw new IdNotFoundException("Product with Id: " + prodId + " is not found");
