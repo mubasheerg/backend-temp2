@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.revature.shopmanagement.dao.StocksDAO;
 import com.revature.shopmanagement.entity.Cart;
+import com.revature.shopmanagement.entity.OrderItem;
 import com.revature.shopmanagement.entity.Products;
 import com.revature.shopmanagement.entity.Stocks;
 import com.revature.shopmanagement.exception.DataBaseException;
@@ -50,11 +51,11 @@ public class StocksDAOImpl implements StocksDAO {
 	@Override
 	public String updateStocks(Stocks stocks) {
 		logger.info("update stocks");
-		Stocks stock=null;
+		Stocks stock = null;
 		try {
 			Session session = sessionFactory.getCurrentSession();
-			stock=getStocksById(stocks.getStockId());
-			stocks.setCount(stock.getCount()+stocks.getCount());
+			stock = getStocksById(stocks.getStockId());
+			stocks.setCount(stock.getCount() + stocks.getCount());
 			stocks.getStockUpdatedOn();
 			session.merge(stocks);
 			return "Stock updated successfully!";
@@ -127,6 +128,20 @@ public class StocksDAOImpl implements StocksDAO {
 		}
 		return stockList;
 	}
-	
+
+	@Override
+	public Long updateCount(Long prodId,int quantity) {
+		logger.info("getcount called");
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			Query<Stocks> query=session.createQuery("from Stocks s where s.product.prodId=:productId");
+			query.setParameter("productId", prodId);
+			Stocks stock=query.getSingleResult();
+			stock.setCount(stock.getCount()-quantity);
+			updateStocks(stock);
+		} catch (Exception e) {
+		}
+		return null;
+	}
 
 }

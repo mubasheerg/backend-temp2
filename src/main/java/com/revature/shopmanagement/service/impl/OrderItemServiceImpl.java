@@ -11,6 +11,7 @@ import com.revature.shopmanagement.entity.Order;
 import com.revature.shopmanagement.dao.OrderDAO;
 import com.revature.shopmanagement.dao.OrderItemDAO;
 import com.revature.shopmanagement.dao.ProductDAO;
+import com.revature.shopmanagement.dao.StocksDAO;
 import com.revature.shopmanagement.dto.OrderItemDTO;
 import com.revature.shopmanagement.entity.OrderItem;
 import com.revature.shopmanagement.entity.Products;
@@ -28,7 +29,8 @@ public class OrderItemServiceImpl implements OrderItemService {
 
 	@Autowired
 	private OrderItemDAO orderItemDAO;
-
+	@Autowired
+	private StocksDAO stocksDAO;
 	@Autowired
 	private OrderDAO orderDAO;
 	@Autowired
@@ -47,6 +49,7 @@ public class OrderItemServiceImpl implements OrderItemService {
 			response = orderItemDAO.addItems(orderItem);
 			Double sum = orderItemDAO.getSumByOrderId(orderItem.getOrder().getOrderId());
 			orderDAO.updateOrder(sum, orderItem.getOrder().getOrderId());
+			stocksDAO.updateCount(orderItem.getProduct().getProdId(), orderItemDTO.getQuantity());
 		} else {
 			orderItemDTO.setPrice(orderItemEntity.getPrice() + (orderItemDTO.getQuantity() * product.getProdPrice()));
 			orderItemDTO.setQuantity(orderItemEntity.getQuantity() + orderItemDTO.getQuantity());
@@ -54,6 +57,7 @@ public class OrderItemServiceImpl implements OrderItemService {
 			response = orderItemDAO.updateItems(orderItemEntity.getId(), orderItem);
 			Double sum = orderItemDAO.getSumByOrderId(orderItemEntity.getOrder().getOrderId());
 			orderDAO.updateOrder(sum, orderItemEntity.getOrder().getOrderId());
+			stocksDAO.updateCount(orderItemEntity.getProduct().getProdId(), orderItemDTO.getQuantity());
 		}
 
 		return response;

@@ -19,4 +19,6 @@ public interface StocksDAO {
 	public List<Stocks> getAllStocks();
 	
 	public List<Stocks> getCountByProdId(List<Long> prodIds); 
+	
+	public Long updateCount(Long prodId,int quantity);
 }
