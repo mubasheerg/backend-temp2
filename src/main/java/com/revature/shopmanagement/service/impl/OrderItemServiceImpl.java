@@ -1,18 +1,19 @@
 package com.revature.shopmanagement.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.revature.shopmanagement.entity.Order;
 import com.revature.shopmanagement.dao.OrderDAO;
 import com.revature.shopmanagement.dao.OrderItemDAO;
+import com.revature.shopmanagement.dao.ProductDAO;
 import com.revature.shopmanagement.dto.OrderItemDTO;
 import com.revature.shopmanagement.entity.OrderItem;
+import com.revature.shopmanagement.entity.Products;
 import com.revature.shopmanagement.mapper.OrderItemMapper;
 //import com.revature.shopmanagement.entity.OrderItem;
 //import com.revature.shopmanagement.exception.DataBaseException;
@@ -30,36 +31,37 @@ public class OrderItemServiceImpl implements OrderItemService {
 
 	@Autowired
 	private OrderDAO orderDAO;
+	@Autowired
+	private ProductDAO productDAO;
 
 	@Override
-	public String addItems(OrderItemDTO orderItemDTO) {
-		OrderItem orderItem = OrderItemMapper.dtoToEntity(orderItemDTO);
-		Long id = orderItem.getId();
-		if (orderItemDAO.isOrderItemExists(id));
-		return null;
+	public Long addItems(OrderItemDTO orderItemDTO) {
+		Long response = 0L;
+		OrderItem orderItemEntity = orderItemDAO.checkOrder(orderItemDTO.getOrder().getOrderId(),
+				orderItemDTO.getProduct().getProdId());
+		Products product = productDAO.getProductById(orderItemDTO.getProduct().getProdId());
+		System.out.println(orderItemEntity);
+		if (orderItemEntity == null) {
+			orderItemDTO.setPrice(orderItemDTO.getQuantity() * product.getProdPrice());
+			OrderItem orderItem = OrderItemMapper.dtoToEntity(orderItemDTO);
+			response = orderItemDAO.addItems(orderItem);
+			Double sum = orderItemDAO.getSumByOrderId(orderItem.getOrder().getOrderId());
+			orderDAO.updateOrder(sum, orderItem.getOrder().getOrderId());
+		} else {
+			orderItemDTO.setPrice(orderItemEntity.getPrice() + (orderItemDTO.getQuantity() * product.getProdPrice()));
+			orderItemDTO.setQuantity(orderItemEntity.getQuantity() + orderItemDTO.getQuantity());
+			OrderItem orderItem = OrderItemMapper.dtoToEntity(orderItemDTO);
+			response = orderItemDAO.updateItems(orderItemEntity.getId(), orderItem);
+			Double sum = orderItemDAO.getSumByOrderId(orderItemEntity.getOrder().getOrderId());
+			orderDAO.updateOrder(sum, orderItemEntity.getOrder().getOrderId());
+		}
+
+		return response;
 	}
 
 	@Override
-	public List<OrderItemDTO> getOrderedItems(Long orderId) {
-//		try {
-//			 if(orderDAO.getOrderById(orderId)==null) {
-//					throw new IdNotFoundException("Order id not found");
-//			}
-//			List<OrderItem> orderItemList = orderItemDAO.getOrderedItems(orderId);
-//			if (CollectionUtils.isEmpty(orderItemList)) {
-//	 			throw new DataBaseException("Order Item Id Not Found");
-//			}
-//			else {	
-//				List<OrderItemDTO> orderItemDto = new ArrayList<>();
-//				orderItemList.stream().forEach(entity -> orderItemDto.add(OrderItemMapper.toDto(entity)));
-//				return orderItemDto;
-//			}
-//		} catch (DataBaseException e) {
-//			throw new BusinessLogicException(e.getMessage());
-//		}
-//	}
-		return null;
-//}
+	public List<OrderItem> getOrderedItems(Long orderId) {
 
+		return orderItemDAO.getOrderedItems(orderId);
 	}
 }

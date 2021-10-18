@@ -33,26 +33,29 @@ public class OrderDAOImpl implements OrderDAO {
 
 	@Transactional
 	@Override
-	public String addOrder(Order order) {
+	public Long addOrder(Order order) {
 		logger.info("add order called");
+		Long id=0L;
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			order.setOrderedOn(new Date());
-			session.save(order);
-			return "Order added successfully";
+			id=(Long) session.save(order);
 		} catch (Exception e) {
 			throw new DataBaseException("Error in database");
 		}
+		return id;
 	}
 
 	@Transactional
 	@Override
-	public String updateOrder(Order order) {
+	public String updateOrder(Double sum, Long orderId) {
 		logger.info("update order called");
 		try {
 			Session session = sessionFactory.getCurrentSession();
-			order.setOrderedOn(new Date());
-			session.merge(order);
+			Query query = session.createQuery("update Order set amount=:sum where id=:id");
+			query.setParameter("sum", sum);
+			query.setParameter("id", orderId);
+			query.executeUpdate();
 			return "Order updated successfully!";
 		} catch (Exception e) {
 			throw new DataBaseException("Error in database");

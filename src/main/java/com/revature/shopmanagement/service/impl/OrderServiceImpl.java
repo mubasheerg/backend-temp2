@@ -28,7 +28,7 @@ public class OrderServiceImpl implements OrderService {
 	private OrderDAO orderDAO;
 
 	@Override
-	public String addOrder(OrderDTO orderDTO) {
+	public Long addOrder(OrderDTO orderDTO) {
 		logger.info("add order");
 		Order order = OrderMapper.dtoToEntity(orderDTO);
 		Long orderId = order.getOrderId();
@@ -40,13 +40,15 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public String updateOrder(OrderDTO orderDTO) {
-		logger.info("update order");
-		Order order = OrderMapper.dtoToEntity(orderDTO);
-		Long orderId = order.getOrderId();
-		if (orderDAO.isOrderExists(orderId))
-			return orderDAO.updateOrder(order);
-		else
-			throw new IdNotFoundException("Order with Id: " + orderId + " is not found");
+//		logger.info("update order");
+//		Order order = OrderMapper.dtoToEntity(orderDTO);
+//		Long orderId = order.getOrderId();
+//		if (orderDAO.isOrderExists(orderId))
+//			return orderDAO.updateOrder(order);
+//		else
+//			throw new IdNotFoundException("Order with Id: " + orderId + " is not found");
+//	
+		return null;
 	}
 
 	@Override

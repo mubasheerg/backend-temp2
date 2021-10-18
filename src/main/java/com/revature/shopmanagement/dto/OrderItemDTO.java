@@ -1,5 +1,7 @@
 package com.revature.shopmanagement.dto;
 
+import java.util.Date;
+
 import com.revature.shopmanagement.entity.Order;
 import com.revature.shopmanagement.entity.Products;
 
@@ -7,17 +9,19 @@ public class OrderItemDTO {
 	private Long id;
 	private Integer quantity;
 	private Double price;
+	private Date createdOn;
 	private Order order;
 	private Products product;
 
 	public OrderItemDTO() {
 	}
 
-	public OrderItemDTO(Long id, Integer quantity, Double price, Order order, Products product) {
+	public OrderItemDTO(Long id, Integer quantity, Double price, Date createdOn, Order order, Products product) {
 		super();
 		this.id = id;
 		this.quantity = quantity;
 		this.price = price;
+		this.createdOn = createdOn;
 		this.order = order;
 		this.product = product;
 	}
@@ -46,6 +50,14 @@ public class OrderItemDTO {
 		this.price = price;
 	}
 
+	public Date getCreatedOn() {
+		return createdOn;
+	}
+
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
+	}
+
 	public Order getOrder() {
 		return order;
 	}
@@ -64,8 +76,8 @@ public class OrderItemDTO {
 
 	@Override
 	public String toString() {
-		return "OrderItemDTO [id=" + id + ", quantity=" + quantity + ", price=" + price + ", order=" + order
-				+ ", product=" + product + "]";
+		return "OrderItemDTO [id=" + id + ", quantity=" + quantity + ", price=" + price + ", createdOn=" + createdOn
+				+ ", order=" + order + ", product=" + product + "]";
 	}
 
 }

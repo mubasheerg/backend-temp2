@@ -1,5 +1,7 @@
 package com.revature.shopmanagement.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,19 +24,24 @@ import com.revature.shopmanagement.service.OrderItemService;
 @RequestMapping("orderItem")
 public class OrderItemController {
 
-	OrderItem orderItem = new OrderItem();
+	//OrderItem orderItem = new OrderItem();
 
 	@Autowired
 	OrderItemService orderItemService;
 
 	@PostMapping
-	public ResponseEntity<OrderItem> addItems(@RequestBody OrderItemDTO orderItemDTO) {
-			return new ResponseEntity<>(orderItemService.addItems(orderItemDTO)), HttpStatus.OK);
+	public ResponseEntity<Long> addItems(@RequestBody OrderItemDTO orderItemDTO) {
+			return new ResponseEntity<>(orderItemService.addItems(orderItemDTO), HttpStatus.OK);
 	}
 
-	@GetMapping("/{orderId}")
-	public ResponseEntity<OrderItem> getOrderedItems(@PathVariable("orderId") Long orderId) {
-		return new ResponseEntity<>(orderItemService.getOrderedItems(orderId)),HttpStatus.OK);
+	@GetMapping("/{id}")
+	public ResponseEntity<List<OrderItem>> getOrderedItems(@PathVariable("id") Long id){
+		return new ResponseEntity<>(orderItemService.getOrderedItems(id),HttpStatus.OK);
 	}
+	
+//	@GetMapping("/{orderId}")
+//	public ResponseEntity<OrderItem> getOrderedItems(@PathVariable("orderId") Long orderId) {
+//		return new ResponseEntity<>(orderItemService.getOrderedItems(orderId)),HttpStatus.OK);
+//	}
 
 }

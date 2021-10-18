@@ -6,7 +6,7 @@ import com.revature.shopmanagement.dto.OrderDTO;
 import com.revature.shopmanagement.entity.Order;
 
 public interface OrderService {
-	public String addOrder(OrderDTO orderDTO);
+	public Long addOrder(OrderDTO orderDTO);
 
 	public String updateOrder(OrderDTO orderDTO);
 

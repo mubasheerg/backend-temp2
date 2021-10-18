@@ -4,9 +4,9 @@ import java.util.List;
 import com.revature.shopmanagement.entity.Order;
 
 public interface OrderDAO {
-	public String addOrder(Order order);
+	public Long addOrder(Order order);
 
-	public String updateOrder(Order order);
+	public String updateOrder(Double sum,Long orderId);
 
 	public String deleteOrderById(Long orderId);
 
