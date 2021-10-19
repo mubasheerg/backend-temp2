@@ -42,14 +42,16 @@ public class OrderItemServiceImpl implements OrderItemService {
 		OrderItem orderItemEntity = orderItemDAO.checkOrder(orderItemDTO.getOrder().getOrderId(),
 				orderItemDTO.getProduct().getProdId());
 		Products product = productDAO.getProductById(orderItemDTO.getProduct().getProdId());
-		System.out.println(orderItemEntity);
 		if (orderItemEntity == null) {
 			orderItemDTO.setPrice(orderItemDTO.getQuantity() * product.getProdPrice());
 			OrderItem orderItem = OrderItemMapper.dtoToEntity(orderItemDTO);
 			response = orderItemDAO.addItems(orderItem);
 			Double sum = orderItemDAO.getSumByOrderId(orderItem.getOrder().getOrderId());
 			orderDAO.updateOrder(sum, orderItem.getOrder().getOrderId());
+			System.out.print(orderItem.getOrder().getOrderId());
 			stocksDAO.updateCount(orderItem.getProduct().getProdId(), orderItemDTO.getQuantity());
+			System.out.println(orderItem.getProduct().getProdId());
+			System.out.println(orderItemDTO.getQuantity());
 		} else {
 			orderItemDTO.setPrice(orderItemEntity.getPrice() + (orderItemDTO.getQuantity() * product.getProdPrice()));
 			orderItemDTO.setQuantity(orderItemEntity.getQuantity() + orderItemDTO.getQuantity());
@@ -58,14 +60,14 @@ public class OrderItemServiceImpl implements OrderItemService {
 			Double sum = orderItemDAO.getSumByOrderId(orderItemEntity.getOrder().getOrderId());
 			orderDAO.updateOrder(sum, orderItemEntity.getOrder().getOrderId());
 			stocksDAO.updateCount(orderItemEntity.getProduct().getProdId(), orderItemDTO.getQuantity());
+			System.out.println(orderItemEntity.getProduct().getProdId());
+			System.out.println(orderItemDTO.getQuantity());
 		}
-
 		return response;
 	}
 
 	@Override
 	public List<OrderItem> getOrderedItems(Long orderId) {
-
 		return orderItemDAO.getOrderedItems(orderId);
 	}
 }

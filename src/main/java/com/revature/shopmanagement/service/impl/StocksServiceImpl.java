@@ -86,7 +86,14 @@ public class StocksServiceImpl implements StocksService {
 
 	@Override
 	public List<Stocks> getCountByProdId(List<Long> prodIds) {
+		logger.info("getting count of list of products by id");
 		return stocksDAO.getCountByProdId(prodIds);
+	}
+
+	@Override
+	public Stocks getCountByProdId(Long prodId) {
+		logger.info("getting count of product by id");
+		return stocksDAO.getCountByProdId(prodId);
 	}
 
 }

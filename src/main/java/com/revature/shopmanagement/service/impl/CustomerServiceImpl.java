@@ -14,7 +14,6 @@ import com.revature.shopmanagement.entity.Customer;
 import com.revature.shopmanagement.exception.*;
 import com.revature.shopmanagement.mapper.CustomerMapper;
 import com.revature.shopmanagement.service.CustomerService;
-import com.revature.shopmanagement.util.PasswordGenerator;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -127,12 +126,6 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public String forgotPassword(String custMail, String custPwd) {
-		logger.info("forgot password");
-		Customer customer = customerDAO.getCustomerByMail(custMail);
-		if (customer != null)
-			return customerDAO.forgotPassword(custMail, PasswordGenerator.generatePassword());
-		else
-			throw new IdNotFoundException("Customer not found");
+		return null;
 	}
-
 }

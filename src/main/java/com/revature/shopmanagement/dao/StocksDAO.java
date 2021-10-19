@@ -17,8 +17,12 @@ public interface StocksDAO {
 	public boolean isStockExists(Long stockId);
 
 	public List<Stocks> getAllStocks();
-	
-	public List<Stocks> getCountByProdId(List<Long> prodIds); 
-	
-	public Long updateCount(Long prodId,int quantity);
+
+	public List<Stocks> getCountByProdId(List<Long> prodIds);
+
+	public Stocks getCountByProdId(Long prodId);
+
+	public String updateCount(Long prodId, int quantity);
+
+	public String updateStock(Stocks stocks);
 }

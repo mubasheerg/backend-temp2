@@ -91,6 +91,7 @@ public class OrderItemDAOImpl implements OrderItemDAO {
 			System.out.println(session.merge(orderItemEntity));
 			response=id;
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new DataBaseException("Error in database");
 		}
 		return response;

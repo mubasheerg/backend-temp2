@@ -17,7 +17,6 @@ import com.revature.shopmanagement.controller.MailSend;
 import com.revature.shopmanagement.dao.AdminDAO;
 import com.revature.shopmanagement.entity.Admin;
 import com.revature.shopmanagement.exception.DataBaseException;
-import com.revature.shopmanagement.util.PasswordGenerator;
 
 @Repository
 public class AdminDAOImpl implements AdminDAO {
@@ -103,19 +102,7 @@ public class AdminDAOImpl implements AdminDAO {
 	@Transactional
 	@Override
 	public String addAdmin(Admin admin) {
-		logger.info("Entering add Admin Function");
-		try {
-			Session session = sessionFactory.getCurrentSession();
-			admin.setAdminPwd(PasswordGenerator.generatePassword());
-			session.save(admin);
-			Long adminId = admin.getAdminId();
-			MailSend.sendMail(admin.getMailId(), "Admin Registration",
-					"Hi, " + admin.getAdminName() + "\nYou're added as admin" + "\nAdmin Id :" + admin.getAdminId()
-							+ "\nNew Password :" + admin.getAdminPwd() + "\n\nThank You.");
-			return "Admin Account created with : " + adminId + " at " + localTime;
-		} catch (Exception e) {
-			throw new DataBaseException("Error in adding admin to DataBase");
-		}
+		return null;
 	}
 
 	@Override

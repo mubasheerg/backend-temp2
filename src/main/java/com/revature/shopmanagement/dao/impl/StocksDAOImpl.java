@@ -50,6 +50,7 @@ public class StocksDAOImpl implements StocksDAO {
 	@Transactional
 	@Override
 	public String updateStocks(Stocks stocks) {
+		System.out.println("In update stock");
 		logger.info("update stocks");
 		Stocks stock = null;
 		try {
@@ -58,8 +59,27 @@ public class StocksDAOImpl implements StocksDAO {
 			stocks.setCount(stock.getCount() + stocks.getCount());
 			stocks.getStockUpdatedOn();
 			session.merge(stocks);
+			System.out.println("update stock complted");
 			return "Stock updated successfully!";
 		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DataBaseException("Error in database");
+		}
+	}
+
+	@Transactional
+	@Override
+	public String updateStock(Stocks stocks) {
+		logger.info("update stocks");
+		Stocks stock = null;
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			Stocks stockEntity = session.load(Stocks.class, stocks.getStockId());
+			stockEntity.setCount(stocks.getCount());
+			session.merge(stockEntity);
+			return "Stock updated successfully!";
+		} catch (Exception e) {
+			e.printStackTrace();
 			throw new DataBaseException("Error in database");
 		}
 	}
@@ -123,25 +143,40 @@ public class StocksDAOImpl implements StocksDAO {
 				stockList.add(stock);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new DataBaseException("");
+			throw new DataBaseException("Erron in DB");
 		}
 		return stockList;
 	}
 
 	@Override
-	public Long updateCount(Long prodId,int quantity) {
+	public String updateCount(Long prodId, int quantity) {
 		logger.info("getcount called");
+		String stocks = null;
 		try {
 			Session session = sessionFactory.getCurrentSession();
-			Query<Stocks> query=session.createQuery("from Stocks s where s.product.prodId=:productId");
+			Query<Stocks> query = session.createQuery("from Stocks s where s.product.prodId=:productId");
 			query.setParameter("productId", prodId);
-			Stocks stock=query.getSingleResult();
-			stock.setCount(stock.getCount()-quantity);
-			updateStocks(stock);
+			Stocks stock = query.uniqueResult();
+			stock.setCount(stock.getCount() - quantity);
+			stocks = updateStock(stock);
 		} catch (Exception e) {
+			throw new DataBaseException("Erron in DB");
 		}
-		return null;
+		return stocks;
+	}
+
+	@Override
+	public Stocks getCountByProdId(Long prodId) {
+		Stocks stock = null;
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			Query<Stocks> query = session.createQuery("from Stocks s where s.product.prodId=:productId");
+			query.setParameter("productId", prodId);
+			stock = query.uniqueResult();
+		} catch (Exception e) {
+			throw new DataBaseException("Erron in DB");
+		}
+		return stock;
 	}
 
 }

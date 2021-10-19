@@ -55,4 +55,9 @@ public class StocksController {
 	public ResponseEntity<String> deleteStocksById(@PathVariable("stockId") Long stockId) {
 		return new ResponseEntity<>(stocksService.deleteStocksById(stockId), HttpStatus.OK);
 	}
+	
+	@GetMapping("/count/{prodId}")
+	public ResponseEntity<Stocks> getCountByProdId(@PathVariable("prodId") Long prodId){
+		return new ResponseEntity<>(stocksService.getCountByProdId(prodId),HttpStatus.OK);
+	}
 }

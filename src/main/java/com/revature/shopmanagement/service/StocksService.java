@@ -53,4 +53,6 @@ public interface StocksService {
 	public List<Stocks> getAllStocks();
 
 	public List<Stocks> getCountByProdId(List<Long> prodIds);
+
+	public Stocks getCountByProdId(Long prodId);
 }
