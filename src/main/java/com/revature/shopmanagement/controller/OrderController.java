@@ -50,7 +50,7 @@ public class OrderController {
 	}
 
 	@GetMapping("/getAllOrders")
-	public ResponseEntity<List<Order>> getAllcustomers() {
+	public ResponseEntity<List<Order>> getAllOrders() {
 		return new ResponseEntity<>(orderService.getAllOrders(), HttpStatus.OK);
 	}
 }

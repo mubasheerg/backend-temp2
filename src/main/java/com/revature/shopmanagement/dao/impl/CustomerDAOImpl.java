@@ -42,6 +42,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			customer.setCustCreatedOn(new Date());
+			System.out.println(customer);
 			session.save(customer);
 			return "Customer successfully created at : " + localTime;
 		} catch (Exception e) {
